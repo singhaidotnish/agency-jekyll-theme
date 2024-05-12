@@ -214,14 +214,14 @@ carousels:
             }
         }
   }
-  {% if include.duration %}
-  setInterval(function(){
-    var j=0;
-    var elements = document.querySelectorAll('#carousel{{ number}} .carousel__control--forward');
-    for(i=(elements.length - 1);i>-1;i--) {
-      if(isVisible(elements[i])) j=i;
-    }
-    elements[j].click();
-  },{{ include.duration }}000);
-  {% endif %}
+<!--  {% if include.duration %}-->
+<!--  setInterval(function(){-->
+<!--    var j=0;-->
+<!--    var elements = document.querySelectorAll('#carousel{{ number}} .carousel__control&#45;&#45;forward');-->
+<!--    for(i=(elements.length - 1);i>-1;i&#45;&#45;) {-->
+<!--      if(isVisible(elements[i])) j=i;-->
+<!--    }-->
+<!--    elements[j].click();-->
+<!--  },{{ include.duration }}000);-->
+<!--  {% endif %}-->
 </script>

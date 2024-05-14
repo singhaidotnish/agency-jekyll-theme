@@ -1,20 +1,14 @@
----
-carousels:
-  - images:
-    - image: /uploads/slider/image1.jpg
-    - image: /uploads/slider/image2.jpg
-    - image: /uploads/slider/image3.jpg
-    - image: /uploads/slider/image4.jpg
----
 {% assign letterstring = "a,b,c,d,e,f,g,h,i,j,k,l,m,n" %}
 {% assign letters = letterstring | split: ',' %}
 {% assign number = include.number | minus: 1 %}
+number is : {{ number }}
 <div class="carousel__holder">
     <div id="carousel{{ number }}" class="carousel">
-        {% for item in page.carousels[number].images %}
+
+        {% for item in page.carousels[0].images %}
           <input class="carousel__activator" type="radio" name="carousel{{ number }}" id="{{ number }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} />
         {% endfor %}
-        {% for item in page.carousels[number].images %}
+        {% for item in page.carousels[0].images %}
           {% if forloop.index == forloop.length %}
             {% assign nextindex = 0 %}
           {% else %}
@@ -34,13 +28,13 @@ carousels:
         {% endfor %}
         <div class="carousel__track">
           <ul>
-            {% for item in page.carousels[number].images %}
-            <li class="carousel__slide" style="background-image: url('{{ item.image }}');"></li>
+            {% for item in page.carousels[0].images %}
+            <li class="carousel__slide" style="background-image: url('{{ item.image }}');"><a style="text-decoration:none;display:block;width:100%;height:100%;" href="{{ item.url }}"></a></li>
             {% endfor %}
           </ul>
         </div>
         <div class="carousel__indicators">
-            {% for item in page.carousels[number].images %}
+            {% for item in page.carousels[0].images %}
               <label class="carousel__indicator" for="{{ number }}{{ letters[forloop.index0] }}"></label>
             {% endfor %}
         </div>
@@ -61,7 +55,7 @@ carousels:
 .carousel__activator {
   display: none;
 }
-{% for item in page.carousels[number].images %}
+{% for item in page.carousels[0].images %}
 .carousel__activator:nth-of-type({{ forloop.index }}):checked ~ .carousel__track {
   -webkit-transform: translateX(-{{ forloop.index0 }}00%);
           transform: translateX(-{{ forloop.index0 }}00%);
@@ -153,7 +147,7 @@ carousels:
   right: 0;
   opacity: 1;
 }
-{% for item in page.carousels[number].images %}
+{% for item in page.carousels[0].images %}
 .carousel__track .carousel__slide:nth-of-type({{ forloop.index }}) {
   -webkit-transform: translateX({{ forloop.index0 }}00%);
           transform: translateX({{ forloop.index0 }}00%);
@@ -178,7 +172,7 @@ carousels:
 .carousel__indicator {
   background-color: #fafafa;
 }
-{% for item in page.carousels[number].images %}
+{% for item in page.carousels[0].images %}
 .carousel__slide:nth-of-type({{ forloop.index }}),
 .carousel--thumb .carousel__indicators .carousel__indicator:nth-of-type({{ forloop.index }}) {
   background-size: cover;
@@ -214,14 +208,14 @@ carousels:
             }
         }
   }
-<!--  {% if include.duration %}-->
-<!--  setInterval(function(){-->
-<!--    var j=0;-->
-<!--    var elements = document.querySelectorAll('#carousel{{ number}} .carousel__control&#45;&#45;forward');-->
-<!--    for(i=(elements.length - 1);i>-1;i&#45;&#45;) {-->
-<!--      if(isVisible(elements[i])) j=i;-->
-<!--    }-->
-<!--    elements[j].click();-->
-<!--  },{{ include.duration }}000);-->
-<!--  {% endif %}-->
+  {% if include.duration %}
+  setInterval(function(){
+    var j=0;
+    var elements = document.querySelectorAll('#carousel{{ number}} .carousel__control--forward');
+    for(i=(elements.length - 1);i>-1;i--) {
+      if(isVisible(elements[i])) j=i;
+    }
+    elements[j].click();
+  },{{ include.duration }}000);
+  {% endif %}
 </script>

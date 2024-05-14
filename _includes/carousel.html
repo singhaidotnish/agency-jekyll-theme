@@ -13,10 +13,8 @@ carousels:
 {% assign letterstring = "a,b,c,d,e,f,g,h,i,j,k,l,m,n" %}
 {% assign letters = letterstring | split: ',' %}
 {% assign number = include.number | minus: 1 %}
-number is : {{ number }}
 <div class="carousel__holder">
     <div id="carousel{{ number }}" class="carousel">
-
         {% for item in page.carousels[0].images %}
           <input class="carousel__activator" type="radio" name="carousel{{ number }}" id="{{ number }}{{ letters[forloop.index0] }}" {% if forloop.first %}checked="checked"{% endif %} />
         {% endfor %}
@@ -41,7 +39,7 @@ number is : {{ number }}
         <div class="carousel__track">
           <ul>
             {% for item in page.carousels[0].images %}
-            <li class="carousel__slide" style="background-image: url('{{ item.image }}');"><a style="text-decoration:none;display:block;width:100%;height:100%;" href="{{ item.url }}"></a></li>
+            <li class="carousel__slide" style="background-image: url('{{ item.image }}');"></li>
             {% endfor %}
           </ul>
         </div>
